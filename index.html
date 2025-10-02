@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Ademir Rodrigues | Social Media Estratégico em Cuiabá - MT</title>
+    <link rel="icon" href="https://exemplo.com/favicon.ico" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* SEU CSS CONTINUA O MESMO AQUI */
+        :root {
+            --primary-color: #00AEEF; 
+            --bg-color: #121212;
+            --surface-color: #1E1E1E;
+            --text-color: #E0E0E0;
+            --text-secondary-color: #A0A0A0;
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        html, body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--surface-color);
+        }
+        
+        section:last-of-type { border-bottom: none; }
+        
+        h1, h2, h3 { font-weight: 600; color: white; }
+        h2 { font-size: 2.5rem; text-align: center; margin-bottom: 3rem; }
+        h2 span { color: var(--primary-color); }
+
+        .reveal {
+            position: relative;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: 1s all ease;
+        }
+        .reveal.active { transform: translateY(0); opacity: 1; }
+
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background-color: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            transition: background-color 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        
+        .nav-logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        .nav-logo span {
+            font-weight: 400;
+            color: var(--text-secondary-color);
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary-color); }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 1001;
+        }
+        .hamburger .bar {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 174, 239, 0.2); }
+
+        #inicio { min-height: 100vh; display: flex; align-items: center; text-align: center; }
+        .hero-content h1 { font-size: 3rem; margin-bottom: 1rem; min-height: 130px; }
+        .hero-content p { font-size: 1.2rem; color: var(--text-secondary-color); margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;}
+        
+        .sobre-content { display: flex; align-items: center; gap: 4rem; }
+        .sobre-img { position: relative; max-width: 300px; margin: 0 auto; flex-shrink: 0; }
+        .sobre-img img { width: 100%; height: auto; border-radius: 10px; display: block; position: relative; z-index: 2; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); }
+        .sobre-img::before { content: ''; position: absolute; top: -10px; left: -10px; right: 10px; bottom: 10px; border: 2px solid var(--primary-color); border-radius: 10px; z-index: 1; transition: all 0.3s ease; }
+        .sobre-img:hover::before { transform: translate(5px, 5px); }
+        .sobre-text h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+        .sobre-text p { margin-bottom: 1rem; color: var(--text-secondary-color); }
+        
+        .servicos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .servico-card { background: var(--surface-color); padding: 2.5rem 2rem; border-radius: 10px; border-left: 5px solid var(--primary-color); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .servico-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .servico-card .icon { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem; }
+        .servico-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .servico-card p { color: var(--text-secondary-color); margin-bottom: 1.5rem; }
+        .servico-card ul { list-style: none; text-align: left; color: var(--text-secondary-color); }
+        .servico-card ul li { margin-bottom: 0.5rem; display: flex; align-items: center; }
+        .servico-card ul li .fa-check { color: var(--primary-color); margin-right: 0.8rem; }
+        
+        .metodologia-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .metodologia-card { background-color: var(--surface-color); padding: 2rem; border-radius: 10px; text-align: center; border: 1px solid transparent; transition: transform 0.3s, border-color 0.3s; }
+        .metodologia-card:hover { transform: translateY(-10px); border-color: var(--primary-color); }
+        .metodologia-card .icon { font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem; }
+        .metodologia-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .metodologia-card p { color: var(--text-secondary-color); font-size: 0.9rem; }
+        
+        .diferenciais-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .diferencial-card { text-align: center; }
+        .diferencial-card .icon { font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem; }
+        .diferencial-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .diferencial-card p { color: var(--text-secondary-color); }
+        .segmentos-container { text-align: center; margin-top: 4rem; }
+        .segmentos-container h4 { font-size: 1.2rem; color: var(--text-secondary-color); font-weight: 400; margin-bottom: 1.5rem; }
+        .segmentos-tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+        .segmento-tag { background: var(--surface-color); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; }
+
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: var(--surface-color); margin-bottom: 1rem; border-radius: 5px; overflow: hidden; }
+        .faq-question { width: 100%; background: transparent; border: none; padding: 1.5rem; font-size: 1.1rem; font-weight: 600; color: white; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; transition: transform 0.3s; }
+        .faq-question.active::after { transform: rotate(180deg); color: var(--primary-color); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
+        .faq-answer p { padding: 0 1.5rem 1.5rem; color: var(--text-secondary-color); }
+        
+        #contato .container { text-align: center; }
+        #contato h2 { margin-bottom: 1.5rem; }
+        #contato p { color: var(--text-secondary-color); font-size: 1.1rem; max-width: 600px; margin: 0 auto 2.5rem auto; }
+        .social-links { margin-top: 2rem; }
+        .social-links a { font-size: 2rem; color: var(--text-secondary-color); margin: 0 1rem; transition: color 0.3s, transform 0.3s; }
+        .social-links a:hover { color: var(--primary-color); transform: translateY(-5px); }
+        
+        footer { text-align: center; padding: 2rem 0; background-color: var(--surface-color); font-size: 0.9rem; color: var(--text-secondary-color); }
+        
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2.5rem; text-decoration: none; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 999; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        @media(max-width: 768px) {
+            section { padding: 4rem 1rem; }
+            .container { padding: 0 1rem; }
+            h2 { font-size: 2rem; }
+            .hero-content h1 { font-size: 2.2rem; min-height: 150px; }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--surface-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 3rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+            .nav-links.active {
+                transform: translateX(0);
+            }
+            .nav-links a { font-size: 1.2rem; }
+
+            .hamburger {
+                display: flex;
+            }
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+            .sobre-content { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#inicio" class="nav-logo">Ademir Rodrigues <span>| Social Media</span></a>
+                <ul class="nav-links">
+                    <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                    <li><a href="#servicos" class="nav-link">Serviços</a></li>
+                    <li><a href="#diferenciais" class="nav-link">Diferenciais</a></li>
+                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="#contato" class="nav-link">Contato</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio">
+            <div class="container">
+                <div class="hero-content reveal">
+                    <h1>Sua marca não precisa de mais posts. Precisa de <span id="typed" style="color: var(--primary-color);"></span></h1>
+                    <p>Chega de postar sem rumo. Eu transformo suas redes sociais em canais de crescimento previsível, conectando sua marca com clientes que realmente compram.</p>
+                    <a href="https://api.whatsapp.com/send?phone=5565981041001&text=Ol%C3%A1!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20falar%20sobre%20meu%20projeto." target="_blank" class="cta-button">Agende sua Análise Estratégica</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="sobre">
+            <div class="container reveal">
+                <h2>Quem está por trás da <span>estratégia</span></h2>
+                <div class="sobre-content">
+                    <div class="sobre-img">
+                        <img src="https://res.cloudinary.com/dwu4r8y1a/image/upload/v1758027712/Picsart_25-09-03_17-28-57-997_pk6mmn.jpg" alt="Foto de Ademir Rodrigues, Social Media em Cuiabá">
+                    </div>
+                    <div class="sobre-text">
+                        <h3>Olá, sou o Ademir Rodrigues, e não sou apenas um Social Media. Sou seu parceiro de crescimento aqui em Cuiabá.</h3>
+                        <p>Após anos no mercado, percebi que a maioria das empresas trata as redes sociais como um catálogo. Eu acredito no contrário: social media é sobre construir relacionamentos, autoridade e, consequentemente, vendas.</p>
+                        <p>Minha missão é simples: usar dados e criatividade para fazer seu negócio se destacar na nossa cidade. Eu não entrego posts, eu entrego um plano de crescimento.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="servicos">
+            <div class="container reveal">
+                <h2>Soluções para o seu <span>Negócio Decolar </span></h2>
+                <div class="servicos-grid">
+                    <div class="servico-card">
+                        <div class="icon"><i class="fas fa-bullhorn"></i></div>
+                        <h3>Gestão Completa de Mídias</h3>
+                        <p>A solução ideal para quem quer focar no negócio e ter a tranquilidade de que suas redes sociais estão gerando resultados.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i>Estratégia e Calendário Editorial</li>
+                            <li><i class="fas fa-check"></i>Conteúdo que Conecta e Converte</li>
+                            <li><i class="fas fa-check"></i>Agendamento e Publicação</li>
+                            <li><i class="fas fa-check"></i>Relatórios Mensais Descomplicados</li>
+                        </ul>
+                    </div>
+                    <div class="servico-card">
+                        <div class="icon"><i class="fas fa-lightbulb"></i></div>
+                        <h3>Consultoria Estratégica</h3>
+                        <p>Se você tem uma equipe ou executa o marketing, te entrego um plano de ação claro para seguir e ter sucesso.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i>Análise Profunda do seu Perfil</li>
+                            <li><i class="fas fa-check"></i>Definição de Persona e Linha Editorial</li>
+                            <li><i class="fas fa-check"></i>Plano de Conteúdo para 90 dias</li>
+                            <li><i class="fas fa-check"></i>Sessão de Mentoria Online</li>
+                        </ul>
+                    </div>
+                    <div class="servico-card">
+                        <div class="icon"><i class="fas fa-rocket"></i></div>
+                        <h3>Anúncios que Vendem</h3>
+                        <p>Atraia clientes todos os dias com campanhas de tráfego pago otimizadas para o seu objetivo, seja ele qual for.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i>Planejamento de Campanhas</li>
+                            <li><i class="fas fa-check"></i>Criação de Anúncios Persuasivos</li>
+                            <li><i class="fas fa-check"></i>Segmentação Inteligente de Público</li>
+                            <li><i class="fas fa-check"></i>Otimização para Máximo ROI</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="metodologia">
+            <div class="container reveal">
+                <h2>Meu Plano de Ação<span>. Simples e Eficaz</span></h2>
+                <div class="metodologia-grid">
+                    <div class="metodologia-card"><div class="icon"><i class="fas fa-search"></i></div><h3>1. Imersão e Análise</h3><p>Mergulhamos no seu negócio, público e concorrentes. Entender o cenário é o primeiro passo para dominar o jogo.</p></div>
+                    <div class="metodologia-card"><div class="icon"><i class="fas fa-map-signs"></i></div><h3>2. Estratégia e Planejamento</h3><p>Desenhamos um plano com metas claras. Cada post, cada campanha, tem um propósito: gerar resultados para você.</p></div>
+                    <div class="metodologia-card"><div class="icon"><i class="fas fa-pencil-ruler"></i></div><h3>3. Execução Criativa</h3><p>Produzimos conteúdo relevante e anúncios que falam a língua do seu cliente, construindo uma marca forte e desejada.</p></div>
+                    <div class="metodologia-card"><div class="icon"><i class="fas fa-chart-line"></i></div><h3>4. Otimização Contínua</h3><p>Analisamos os dados mensalmente para otimizar a estratégia, garantir o melhor retorno e escalar seus resultados.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="diferenciais">
+            <div class="container reveal">
+                <h2>Por que trabalhar <span>comigo?</span></h2>
+                <div class="diferenciais-grid">
+                    <div class="diferencial-card">
+                        <div class="icon"><i class="fas fa-chart-pie"></i></div>
+                        <h3>Foco em Vendas, não em Vaidade</h3>
+                        <p>Meu objetivo final não é gerar curtidas, mas sim oportunidades de negócio reais. Cada ação é pensada para aproximar sua marca da venda.</p>
+                    </div>
+                    <div class="diferencial-card">
+                        <div class="icon"><i class="fas fa-handshake"></i></div>
+                        <h3>Parceria e Proximidade</h3>
+                        <p>Não sou apenas um fornecedor. Me envolvo com seu negócio para entender seus desafios, agindo como um verdadeiro braço direito no seu marketing.</p>
+                    </div>
+                    <div class="diferencial-card">
+                        <div class="icon"><i class="fas fa-eye"></i></div>
+                        <h3>Transparência Total</h3>
+                        <p>Você terá acesso a relatórios claros para acompanhar o crescimento e o retorno do seu investimento. Sem "métricas de fumaça".</p>
+                    </div>
+                </div>
+                <div class="segmentos-container">
+                    <h4>Especialista nos seguintes segmentos:</h4>
+                    <div class="segmentos-tags">
+                        <span class="segmento-tag">E-commerce</span>
+                        <span class="segmento-tag">Negócios Locais</span>
+                        <span class="segmento-tag">Profissionais da Saúde</span>
+                        <span class="segmento-tag">Restaurantes & Cafés</span>
+                        <span class="segmento-tag">Prestadores de Serviço</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq">
+            <div class="container reveal">
+                <h2>Dúvidas Frequentes<span>. Sem enrolação</span></h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question">Quanto tempo leva para ver resultados?</button>
+                        <div class="faq-answer">
+                            <p>Resultados como profissionalização da marca e aumento de engajamento são visíveis desde o primeiro mês. Resultados de vendas são uma construção contínua, mas campanhas de anúncios podem trazer clientes qualificados já nas primeiras semanas.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Qual o valor do investimento?</button>
+                        <div class="faq-answer">
+                            <p>Não trabalho com pacotes engessados, pois cada negócio é único. O investimento é personalizado de acordo com seus objetivos. Me chame no WhatsApp para uma conversa sem compromisso, onde montaremos um plano ideal para você. O foco é sempre no retorno que o investimento trará.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Preciso assinar um contrato de fidelidade?</button>
+                        <div class="faq-answer">
+                            <p>Não. Acredito que a parceria deve continuar pelos resultados gerados, não por uma obrigação contratual. Trabalho com planos mensais e flexíveis para sua total tranquilidade.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Eu terei que aprovar os posts antes?</button>
+                        <div class="faq-answer">
+                            <p>Com certeza. Você terá acesso a todo o calendário de conteúdo para aprovação antes de qualquer publicação. A estratégia é colaborativa e sua opinião é fundamental.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato">
+            <div class="container reveal">
+                <h2>Pronto para parar de perder clientes para a concorrência?</h2>
+                <p>O próximo passo é simples. Clique no botão abaixo para agendar sua Análise Estratégica gratuita. Vou entender seu negócio e mostrar o plano exato para você vender mais usando as redes sociais.</p>
+                <a href="https://api.whatsapp.com/send?phone=5565981041001&text=Ol%C3%A1!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20agendar%20minha%20An%C3%A1lise%20Estrat%C3%A9gica." target="_blank" class="cta-button">Quero Vender Mais Agora</a>
+                <div class="social-links">
+                    <a href="https://instagram.com/arodriguesig" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/arodriguesig" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <a href="https://api.whatsapp.com/send?phone=5565981041001&text=Ol%C3%A1!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20falar%20sobre%20meu%20projeto." target="_blank" class="whatsapp-float" aria-label="Fale conosco no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <div class="container">
+             <p>&copy; 2025 Ademir Rodrigues | Cuiabá - MT. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- LÓGICA PARA O MENU HAMBURGER ---
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const navLinkItems = document.querySelectorAll('.nav-link');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+
+            navLinkItems.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        hamburger.classList.remove('active');
+                    }
+                });
+            });
+
+            // --- LÓGICA PARA O FAQ (ACCORDION) ---
+            const faqQuestions = document.querySelectorAll('.faq-question');
+
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const isActive = question.classList.contains('active');
+                    document.querySelectorAll('.faq-question').forEach(q => {
+                        q.classList.remove('active');
+                        q.nextElementSibling.style.maxHeight = null;
+                    });
+                    
+                    if (!isActive) {
+                        question.classList.add('active');
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                    }
+                });
+            });
+
+            // --- LÓGICA PARA O EFEITO DE DIGITAÇÃO (TYPED.JS) ---
+            const typed = new Typed('#typed', {
+                strings: ['Estratégia.', 'Resultados.', 'Vendas.', 'Crescimento.'],
+                typeSpeed: 70,
+                backSpeed: 50,
+                backDelay: 2000,
+                loop: true
+            });
+
+            // --- LÓGICA PARA ANIMAÇÃO DE SCROLL (REVEAL) ---
+            function reveal() {
+                const reveals = document.querySelectorAll('.reveal');
+                for (let i = 0; i < reveals.length; i++) {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = reveals[i].getBoundingClientRect().top;
+                    const elementVisible = 150;
+
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add('active');
+                    } else {
+                        // reveals[i].classList.remove('active'); 
+                    }
+                }
+            }
+            window.addEventListener('scroll', reveal);
+            reveal();
+        });
+    </script>
+</body>
+</html>
